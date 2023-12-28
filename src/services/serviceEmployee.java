@@ -40,6 +40,8 @@ public class serviceEmployee {
             }
             if (foundEmployee != null) {
                 Utility.printMessage("Login successful! Welcome " + foundEmployee.getNameEmployee() + ".\n");
+                interactsEmployee(foundEmployee);
+                break;
             }
             else{
                 System.out.println("Username or password not recognized, try again while has chances.\n" +
@@ -47,5 +49,9 @@ public class serviceEmployee {
                 attempts--;
             }
         }while(attempts > 0);
+    }
+    public static void interactsEmployee(Employee employeeList ){
+        Utility.printMessage("      YOUR PAGE, DEAR " + employeeList.getNameEmployee().toUpperCase() + "\n");
+
     }
 }

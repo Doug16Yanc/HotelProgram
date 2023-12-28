@@ -5,6 +5,7 @@ import utils.Utility;
 import java.util.Scanner;
 
 import static services.serviceEmployee.employeeLogin;
+import static services.servicePerson.distinguishPerson;
 
 public class Program {
     static Scanner sc = new Scanner(System.in);
@@ -24,7 +25,7 @@ public class Program {
                 employeeLogin();
             }
             case "c" -> {
-
+                distinguishPerson();
             }
             case "o" -> {
                Utility.printMessage("It was a pleasure spending these simple \n" +
