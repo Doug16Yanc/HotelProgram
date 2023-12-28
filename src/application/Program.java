@@ -1,5 +1,6 @@
 package application;
 
+import services.Occupancy;
 import utils.Utility;
 
 import java.util.Scanner;

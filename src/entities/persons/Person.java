@@ -1,20 +1,24 @@
 package entities.persons;
 
+import enumerations.PrivilegeLevel;
+
 public abstract class Person {
     private int id;
     private String name;
     private String address;
     private String email;
     private String origin;
+    private PrivilegeLevel privilegeLevel;
     public Person(){
 
     }
-    public Person(int id, String name, String address, String email, String origin) {
+    public Person(int id, String name, String address, String email, String origin, PrivilegeLevel privilegeLevel) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.email = email;
         this.origin = origin;
+        this.privilegeLevel = privilegeLevel;
     }
 
     public int getId() {
@@ -55,5 +59,13 @@ public abstract class Person {
 
     public void setOrigin(String origin) {
         this.origin = origin;
+    }
+
+    public PrivilegeLevel getPrivilegeLevel() {
+        return privilegeLevel;
+    }
+
+    public void setPrivilegeLevel(PrivilegeLevel privilegeLevel) {
+        this.privilegeLevel = privilegeLevel;
     }
 }

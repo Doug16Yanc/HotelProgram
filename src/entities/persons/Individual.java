@@ -1,5 +1,7 @@
 package entities.persons;
 
+import enumerations.PrivilegeLevel;
+
 import java.util.Date;
 
 class Individual extends Person {
@@ -7,9 +9,9 @@ class Individual extends Person {
     private Date birthday;
     private String nationality;
 
-    public Individual(int id, String name, String address, String email, String origin,
+    public Individual(int id, String name, String address, String email, String origin, PrivilegeLevel privilegeLevel,
                       String ssn, Date birthday, String nationality) {
-        super(id, name, address, email, origin);
+        super(id, name, address, email, origin, privilegeLevel);
         this.ssn = ssn;
         this.birthday = birthday;
         this.nationality = nationality;

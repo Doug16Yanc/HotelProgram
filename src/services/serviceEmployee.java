@@ -51,7 +51,22 @@ public class serviceEmployee {
         }while(attempts > 0);
     }
     public static void interactsEmployee(Employee employeeList ){
-        Utility.printMessage("      YOUR PAGE, DEAR " + employeeList.getNameEmployee().toUpperCase() + "\n");
+        int option;
+        Utility.printMessage("      YOUR PAGE, DEAR " + employeeList.getNameEmployee().toUpperCase() + "\n\n");
+        do {
+            System.out.println("        1 - See the situation of the rooms          \n");
+            option = sc.nextInt();
+
+            switch (option){
+                case 1 -> {
+                    Occupancy.showRoomSituation();
+                    break;
+                }
+                default -> {
+                    break;
+                }
+            }
+        } while(true);
 
     }
 }
