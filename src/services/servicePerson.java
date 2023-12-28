@@ -10,6 +10,7 @@ import java.util.Scanner;
 import static application.Program.doFirstInteraction;
 
 public class servicePerson {
+    static Person person = new Person();
     static Scanner sc = new Scanner(System.in);
     private static final List<Person> personList = new ArrayList<>();
     public static List<Person> getPersonList() {
@@ -23,10 +24,10 @@ public class servicePerson {
 
         switch (option.toLowerCase()){
             case "i" -> {
-                serviceIndividual.interactsIndividual(personList);
+                serviceIndividual.interactsIndividual(person);
             }
             case "c" -> {
-                serviceCompany.interactsCompany(personList);
+                serviceCompany.interactsCompany(person);
             }
             default -> {
                 Utility.printMessage("Sorry, however this option´s no-existent.");

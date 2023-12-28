@@ -7,14 +7,24 @@ import java.util.Date;
 
 
 public class RoomRate {
+    private int idDaily;
     private Date dateDaily;
     private Double valueDaily;
     private DailySituation situation;
 
-    public RoomRate(Date dateDaily, Double valueDaily, DailySituation situation){
+    public RoomRate(int idDaily, Date dateDaily, Double valueDaily, DailySituation situation){
+        this.idDaily = idDaily;
         this.dateDaily = dateDaily;
         this.valueDaily = valueDaily;
         this.situation = situation;
+    }
+
+    public int getIdDaily() {
+        return idDaily;
+    }
+
+    public void setIdDaily(int idDaily) {
+        this.idDaily = idDaily;
     }
 
     public Date getDateDaily() {

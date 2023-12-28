@@ -35,7 +35,7 @@ public class serviceIndividual {
             }
         }
     }
-    public static void interactsIndividual(List<Person> personList){
+    public static void interactsIndividual(Person person){
         int option;
         Utility.printMessage("********WELCOME TO OUR PAGE TO SSN PERSON*********\n");
         do {
@@ -53,25 +53,25 @@ public class serviceIndividual {
 
             switch (option) {
                 case 1 -> {
-                    Request.askOccupancy();
+                    Request.occupiesIndividual(person);
                     break;
                 }
                 case 2 -> {
-                    Request.askReserve();
+                    Request.reserveIndividual(person);
                     break;
                 }
                 case 3 -> {
-                    Request.askCancellation();
+                    Request.cancelIndividual(person);
                     break;
                 }
                 case 4 -> {
                     System.out.println("O/o - Occupancy\nR/r-Reserve\n\n");
                     String choose = sc.nextLine();
                     if (choose.equalsIgnoreCase("o")){
-                        Query.queryOccupancy();
+                        Query.queryOccupancyIndividual(person);
                     }
                     else if (choose.equalsIgnoreCase("r")){
-                        Query.queryReserve();
+                        Query.queryReserveIndividual(person);
                     }
                     else{
                         System.out.println("Option no-existent!\n");
@@ -79,7 +79,7 @@ public class serviceIndividual {
                     break;
                 }
                 case 5 -> {
-                    Query.queryCancellation();
+                    Query.queryCancellationIndividual(person);
                     break;
                 }
                 case 6 -> {

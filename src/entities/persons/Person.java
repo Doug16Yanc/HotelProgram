@@ -2,7 +2,7 @@ package entities.persons;
 
 import enumerations.PrivilegeLevel;
 
-public abstract class Person {
+public class Person {
     private int id;
     private String name;
     private String address;

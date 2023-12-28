@@ -1,16 +1,26 @@
 package services;
 
+import entities.persons.Person;
 import utils.Utility;
 
 public class Query {
-    public static void queryOccupancy(){
+    public static void queryOccupancyCompany(Person person){
         Utility.printMessage("******REQUEST OCCUPANCY********\n");
 
     }
-    public static void queryReserve(){
+    public static void queryOccupancyIndividual(Person person){
 
     }
-    public static void queryCancellation(){
+    public static void queryReserveCompany(Person person){
+
+    }
+    public static void queryReserveIndividual(Person person){
+
+    }
+    public static void queryCancellationCompany(Person person){
+
+    }
+    public static void queryCancellationIndividual(Person person){
 
     }
 }

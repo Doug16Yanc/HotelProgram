@@ -35,7 +35,7 @@ public class serviceCompany {
             }
         }
     }
-    public static void interactsCompany(List<Person> personList){
+    public static void interactsCompany(Person person){
         int option;
         Utility.printMessage("********WELCOME TO OUR PAGE TO EIN PERSON*********\n");
         do {
@@ -53,25 +53,25 @@ public class serviceCompany {
 
             switch (option) {
                 case 1 -> {
-                    Request.askOccupancy();
+                    Request.occupiesCompany(person);
                     break;
                 }
                 case 2 -> {
-                    Request.askReserve();
+                    Request.reserveCompany(person);
                     break;
                 }
                 case 3 -> {
-                    Request.askCancellation();
+                    Request.cancelCompany(person);
                     break;
                 }
                 case 4 -> {
                     System.out.println("O/o - Occupancy\nR/r-Reserve\n\n");
                     String choose = sc.nextLine();
                     if (choose.equalsIgnoreCase("o")){
-                        Query.queryOccupancy();
+                        Query.queryOccupancyCompany(person);
                     }
                     else if (choose.equalsIgnoreCase("r")){
-                        Query.queryReserve();
+                        Query.queryReserveCompany(person);
                     }
                     else{
                         System.out.println("Option no-existent!\n");
@@ -79,7 +79,7 @@ public class serviceCompany {
                     break;
                 }
                 case 5 -> {
-                    Query.queryCancellation();
+                    Query.queryCancellationCompany(person);
                     break;
                 }
                 case 6 -> {
