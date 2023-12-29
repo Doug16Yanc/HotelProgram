@@ -9,10 +9,14 @@ import java.util.Date;
 public class RoomRate {
     private int idDaily;
     private Date dateDaily;
-    private Double valueDaily;
+    private double valueDaily;
     private DailySituation situation;
 
-    public RoomRate(int idDaily, Date dateDaily, Double valueDaily, DailySituation situation){
+    public RoomRate(){
+
+    }
+
+    public RoomRate(int idDaily, Date dateDaily, double valueDaily, DailySituation situation){
         this.idDaily = idDaily;
         this.dateDaily = dateDaily;
         this.valueDaily = valueDaily;
@@ -35,11 +39,11 @@ public class RoomRate {
         this.dateDaily = dateDaily;
     }
 
-    public Double getValueDaily() {
+    public double getValueDaily(double valueDaily) {
         return valueDaily;
     }
 
-    public void setValueDaily(Double valueDaily) {
+    public void setValueDaily(double valueDaily) {
         this.valueDaily = valueDaily;
     }
 

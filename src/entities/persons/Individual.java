@@ -4,17 +4,15 @@ import enumerations.PrivilegeLevel;
 
 import java.util.Date;
 
-class Individual extends Person {
+public class Individual extends Person {
     private String ssn;
-    private Date birthday;
-    private String nationality;
+    private String birthday;
 
     public Individual(int id, String name, String address, String email, String origin, PrivilegeLevel privilegeLevel,
-                      String ssn, Date birthday, String nationality) {
+                      String ssn, String birthday) {
         super(id, name, address, email, origin, privilegeLevel);
         this.ssn = ssn;
         this.birthday = birthday;
-        this.nationality = nationality;
     }
 
     public String getSsn() {
@@ -25,19 +23,12 @@ class Individual extends Person {
         this.ssn = ssn;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
-    public String getNationality() {
-        return nationality;
-    }
-
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
-    }
 }

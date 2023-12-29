@@ -3,7 +3,6 @@ package services;
 import entities.persons.Person;
 import entities.resources.Room;
 import enumerations.RoomSituation;
-import jdk.jshell.execution.Util;
 import utils.Utility;
 
 import java.util.Scanner;
@@ -118,7 +117,9 @@ public class Request {
             }
         }
         if (foundRoom != null){
-            System.out.println("Room " + roomNumber + " occupatted successfully!\n");
+            Utility.printMessage("Room " + roomNumber + " occupatted successfully!\n");
+            foundRoom.setSituation(RoomSituation.BUSY);
+            Daily.recordDaily(roomNumber);
         }
         else {
             System.out.println("Number not possible.\n");

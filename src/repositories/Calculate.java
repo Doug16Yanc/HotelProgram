@@ -1,5 +1,7 @@
 package repositories;
 
 public interface Calculate {
-    public Double doCalculation();
+    static Double doCalculation(int number) {
+        return 0.0;
+    }
 }

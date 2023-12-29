@@ -6,6 +6,9 @@ public class Room {
     private int roomNumber;
     private RoomSituation situation;
 
+    public Room(){
+
+    }
     public Room(int roomNumber, RoomSituation situation){
         this.roomNumber = roomNumber;
         this.situation = situation;

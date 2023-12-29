@@ -11,30 +11,6 @@ import static application.Program.doFirstInteraction;
 
 public class serviceCompany {
     static Scanner sc = new Scanner(System.in);
-    private static int gerarID(List<Person> personList) {
-        Random random = new Random();
-        int enter = random.nextInt(100000, 1000000);
-
-        boolean aux;
-
-        while (true) {
-            aux = true;
-
-            for (Person client : personList) {
-                if (enter == client.getId()) {
-                    aux = false;
-                    break;
-                }
-            }
-
-            if (aux) {
-                return enter;
-            }
-            else {
-                enter = random.nextInt(100000, 1000000);
-            }
-        }
-    }
     public static void interactsCompany(Person person){
         int option;
         Utility.printMessage("********WELCOME TO OUR PAGE TO EIN PERSON*********\n");

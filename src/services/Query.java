@@ -5,7 +5,7 @@ import utils.Utility;
 
 public class Query {
     public static void queryOccupancyCompany(Person person){
-        Utility.printMessage("******REQUEST OCCUPANCY********\n");
+        Utility.printMessage("******QUERY OCCUPANCY********\n");
 
     }
     public static void queryOccupancyIndividual(Person person){
