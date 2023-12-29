@@ -54,13 +54,17 @@ public class serviceEmployee {
         int option;
         Utility.printMessage("      YOUR PAGE, DEAR " + employeeList.getNameEmployee().toUpperCase() + "\n\n");
         do {
-            System.out.println("        1 - See the situation of the rooms          \n");
+            System.out.println("        1 - See the situation of the rooms          \n" +
+                               "        2 - See the sales of occupancies            \n");
             option = sc.nextInt();
 
             switch (option){
                 case 1 -> {
                     Occupancy.showRoomSituation();
                     break;
+                }
+                case 2 -> {
+                    Daily.getRoomList();
                 }
                 default -> {
                     break;

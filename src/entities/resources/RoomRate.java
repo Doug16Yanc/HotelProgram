@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class RoomRate {
     private int idDaily;
-    private Date dateDaily;
+    private String dateDaily;
     private double valueDaily;
     private DailySituation situation;
 
@@ -16,7 +16,7 @@ public class RoomRate {
 
     }
 
-    public RoomRate(int idDaily, Date dateDaily, double valueDaily, DailySituation situation){
+    public RoomRate(int idDaily, String dateDaily, double valueDaily, DailySituation situation){
         this.idDaily = idDaily;
         this.dateDaily = dateDaily;
         this.valueDaily = valueDaily;
@@ -31,15 +31,15 @@ public class RoomRate {
         this.idDaily = idDaily;
     }
 
-    public Date getDateDaily() {
+    public String getDateDaily() {
         return dateDaily;
     }
 
-    public void setDateDaily(Date dateDaily) {
+    public void setDateDaily(String dateDaily) {
         this.dateDaily = dateDaily;
     }
 
-    public double getValueDaily(double valueDaily) {
+    public double getValueDaily() {
         return valueDaily;
     }
 

@@ -5,6 +5,7 @@ import entities.persons.Individual;
 import entities.persons.Person;
 import entities.resources.Room;
 import entities.resources.RoomRate;
+import enumerations.DailySituation;
 import enumerations.PrivilegeLevel;
 import enumerations.RoomSituation;
 import repositories.Calculate;
@@ -13,15 +14,21 @@ import utils.Utility;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Daily implements Calculate {
     static Scanner sc = new Scanner(System.in);
+    static LocalDateTime date = LocalDateTime.now();
+    static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
     private static final List<RoomRate> roomList = new ArrayList<>();
     public static List<RoomRate> getRoomList() {
         return roomList;
     }
-    public static int generateID(List<RoomRate> dailyList) {
+
+    public static int generateID() {
         Random random = new Random();
         int enter = random.nextInt(100, 1000000000);
 
@@ -30,7 +37,7 @@ public class Daily implements Calculate {
         while (true) {
             aux = true;
 
-            for (RoomRate daily : dailyList) {
+            for (RoomRate daily : getRoomList()) {
                 if (enter == daily.getIdDaily()) {
                     aux = false;
                     break;
@@ -75,9 +82,12 @@ public class Daily implements Calculate {
         proofOccupancyIndividual(individual, foundNumber, number);
     }
     public static void proofOccupancyIndividual(Individual individual, int foundNumber, int number){
-        generateID(roomList);
-        RoomRate roomRate = new RoomRate();
+        generateID();
         Room room = new Room();
+        room.setSituation(RoomSituation.BUSY);
+        int idDaily = generateID();
+        String dateDaily =  date.format(formatter);
+        double value = doCalculation(individual, room, number);
         Utility.printMessage("*********PROOF OF ROOM OCCUPANCY*********\n");
         System.out.println("            INDIVIDUAL DATA         \n\n" +
                           "             > Name : " + individual.getName() + "\n" +
@@ -89,8 +99,15 @@ public class Daily implements Calculate {
                           "             > Birthday date : " + individual.getBirthday() + "\n" +
                           "             > Client type : " + individual.getPrivilegeLevel() + "\n\n" +
                           "             ROOM DATA       \n\n" +
-                          "             > Room number : " + foundNumber + "\n" +
-                          "             > Daily value : US$ " + roomRate.getValueDaily(doCalculation(individual, room, number))+ "\n\n");
+                          "             > Room number : " + foundNumber + "\n\n" +
+                          "             OCCUPANCY DATA                    \n\n" +
+                          "             > Id occupancy : " + idDaily + "\n" +
+                          "             > Date : " + dateDaily + "\n" +
+                          "             > Daily value : US$ " + String.format("%.2f", value) + "\n\n");
+
+        RoomRate roomRate = new RoomRate(idDaily, dateDaily, value, DailySituation.SETTLED);
+
+        roomList.add(roomRate);
     }
     public static void recordDailyCompany(int foundNumber, int number){
         Utility.printMessage("Dear, I ask you to read carefully, the daily rate\n" +
@@ -119,9 +136,12 @@ public class Daily implements Calculate {
         proofOccupancyCompany(company, foundNumber, number);
     }
     public static void proofOccupancyCompany(Company company, int foundNumber, int number){
-        generateID(roomList);
-        RoomRate roomRate = new RoomRate();
+        generateID();
         Room room = new Room();
+        room.setSituation(RoomSituation.BUSY);
+        int idDaily = generateID();
+        String dateDaily =  date.format(formatter);
+        double value = doCalculation(company, room, number);
         Utility.printMessage("*********PROOF OF ROOM OCCUPANCY*********\n");
         System.out.println("            INDIVIDUAL DATA         \n\n" +
                 "             > Name : " + company.getName() + "\n" +
@@ -132,22 +152,29 @@ public class Daily implements Calculate {
                 "             > EIN : " + company.getEin() + "\n" +
                 "             > Client type : " + company.getPrivilegeLevel() + "\n\n" +
                 "             ROOM DATA       \n\n" +
-                "             > Room number : " + foundNumber + "\n" +
-                "             > Daily value : US$ " + roomRate.getValueDaily(doCalculation(company, room, number))+ "\n\n");
+                "             > Room number : " + foundNumber + "\n\n" +
+                "             OCCUPANCY DATA                    \n\n" +
+                "             > Id occupancy : " + idDaily + "\n" +
+                "             > Date : " + dateDaily + "\n" +
+                "             > Daily value : US$ " + String.format("%.2f", value)  + "\n\n");
+
+        RoomRate roomRate = new RoomRate(idDaily, dateDaily, value, DailySituation.SETTLED);
+
+        roomList.add(roomRate);
     }
-    public static Double doCalculation(Person person, Room room, int number) {
-        double value = 0;
-        if (person.getPrivilegeLevel() == PrivilegeLevel.COMPANY && room.getSituation() == RoomSituation.BUSY){
-            value = (250.00*number) + (1.02*250.00) + (1.005*250.00);
+    public static double doCalculation(Person person, Room room, int number){
+        double value = 250.00*number;
+        if (person.getPrivilegeLevel() == PrivilegeLevel.COMPANY && room.getSituation() == RoomSituation.BUSY) {
+            value *= 1.02204;
         }
-        else if (person.getPrivilegeLevel() == PrivilegeLevel.COMPANY && room.getSituation() == RoomSituation.RESERVED){
-            value = (250.00*number) + (1.02*250.00) + (1.02*250.00);
+        else if(person.getPrivilegeLevel() == PrivilegeLevel.INDIVIDUAL && room.getSituation() == RoomSituation.BUSY) {
+            value *= 1.011515;
         }
-        else if (person.getPrivilegeLevel() == PrivilegeLevel.INDIVIDUAL && room.getSituation() == RoomSituation.BUSY) {
-            value = (250.00*number) + (1.01*250.00) + (1.002*250.00);
+        else if (person.getPrivilegeLevel() == PrivilegeLevel.COMPANY && room.getSituation() == RoomSituation.RESERVED) {
+            value *= 1.061106;
         }
-        else if (person.getPrivilegeLevel() == PrivilegeLevel.INDIVIDUAL && room.getSituation() == RoomSituation.RESERVED) {
-            value = (250.00*number) + (1.01*250.00) + (1.015*250.00);
+        else if (person.getPrivilegeLevel() == PrivilegeLevel.INDIVIDUAL && room.getSituation() == RoomSituation.RESERVED){
+            value *= 1.01505;
         }
         return value;
     }
