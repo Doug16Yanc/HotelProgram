@@ -1,6 +1,7 @@
 package services;
 
 import entities.persons.Person;
+import enumerations.PrivilegeLevel;
 import utils.Utility;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import static application.Program.doFirstInteraction;
 public class serviceIndividual {
     static Scanner sc = new Scanner(System.in);
     public static void interactsIndividual(Person person){
+        person.setPrivilegeLevel(PrivilegeLevel.INDIVIDUAL);
         int option;
         Utility.printMessage("********WELCOME TO OUR PAGE TO SSN PERSON*********\n");
         do {

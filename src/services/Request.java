@@ -2,13 +2,14 @@ package services;
 
 import entities.persons.Person;
 import entities.resources.Room;
+import enumerations.PrivilegeLevel;
 import enumerations.RoomSituation;
 import utils.Utility;
 
 import java.util.Scanner;
 
 import static services.Occupancy.*;
-
+import entities.persons.Person;
 public class Request {
 
     static Scanner sc = new Scanner(System.in);
@@ -20,10 +21,10 @@ public class Request {
         int number = sc.nextInt();
 
         if (number > 5){
-           distributeMoreFive(number);
+           distributeMoreFive(person, number);
         }
         else {
-            distributeCommon(number);
+            distributeCommon(person, number);
         }
 
     }
@@ -38,8 +39,16 @@ public class Request {
     }
     public static void occupiesIndividual(Person person){
         Utility.printMessage("OCCUPANCY");
+        System.out.println("The maximum occupancy per room is five people.");
         System.out.println("Number of people to be occupied:");
         int number = sc.nextInt();
+
+        if (number > 5){
+            distributeMoreFive(person, number);
+        }
+        else {
+            distributeCommon(person, number);
+        }
     }
     public static void reserveIndividual(Person person){
         Utility.printMessage("RESERVE");
@@ -53,13 +62,13 @@ public class Request {
         int number = sc.nextInt();
 
         if (number > 5){
-            distributeMoreFive(number);
+            distributeMoreFive(person, number);
         }
         else {
-            distributeCommon(number);
+            distributeCommon(person, number);
         }
     }
-    public static void distributeMoreFive(int number){
+    public static void distributeMoreFive(Person person, int number){
         int result = number % 5;
         if (result == 0) {
             System.out.println("Number of people greater than five.\n" +
@@ -73,7 +82,8 @@ public class Request {
 
         }
     }
-    public static void distributeCommon(int number){
+    public static void distributeCommon(Person person, int number){
+        PrivilegeLevel privilegeLevel = person.getPrivilegeLevel();
         sc.nextLine();
         if (number != 1) {
             System.out.println(number + " person can be allocated in a single room,\n" +
@@ -84,13 +94,35 @@ public class Request {
 
             switch (option.toLowerCase()){
                 case "s" -> {
-                    System.out.println("Nice, come on!\n");
-                    doOccupancy(number, 1);
+                    switch(person.getPrivilegeLevel()){
+                        case INDIVIDUAL -> {
+                            System.out.println("Nice, come on!\n");
+                            doOccupancyIndividual(number, 1);
+                            break;
+                        }
+                        case COMPANY -> {
+                            System.out.println("Nice, come on!\n");
+                            doOccupancyCompany(number, 1);
+                            break;
+                        }
+                    }
+
                 }
                 case "m" -> {
-                    System.out.println("Enter number rooms:");
-                    int quantityRoom = sc.nextInt();
-                    doOccupancy(number, quantityRoom);
+                    switch (person.getPrivilegeLevel()) {
+                        case INDIVIDUAL -> {
+                            System.out.println("Enter number rooms:");
+                            int quantityRoom = sc.nextInt();
+                            doOccupancyIndividual(number, quantityRoom);
+                            break;
+                        }
+                        case COMPANY -> {
+                            System.out.println("Enter number rooms:");
+                            int quantityRoom = sc.nextInt();
+                            doOccupancyCompany(number, quantityRoom);
+                            break;
+                        }
+                    }
                 }
                 default -> {
                     Utility.printMessage("Option not existent.\n");
@@ -99,10 +131,19 @@ public class Request {
 
         }
         else {
-            doOccupancy(number, 1);
+            switch (person.getPrivilegeLevel()) {
+                case INDIVIDUAL -> {
+                    doOccupancyIndividual(number, 1);
+                    break;
+                }
+                case COMPANY -> {
+                    doOccupancyCompany(number, 1);
+                    break;
+                }
+            }
         }
     }
-    public static void doOccupancy(int number, int roomQuantity){
+    public static void doOccupancyIndividual(int number, int roomQuantity){
         showRoomSituation();
         Utility.printMessage("Please, choose to room number for the " + number + " people.\n");
         System.out.println("");
@@ -111,7 +152,7 @@ public class Request {
         Room foundRoom = null;
 
         for (Room room : getRoomList()){
-            if (room.getRoomNumber() == roomNumber && (room.getSituation() != RoomSituation.BUSY && room.getSituation() != RoomSituation.RESERVED)){
+            if (room.getRoomNumber() == roomNumber && (room.getSituation() == RoomSituation.FREE)){
                 foundRoom = room;
                 break;
             }
@@ -119,7 +160,30 @@ public class Request {
         if (foundRoom != null){
             Utility.printMessage("Room " + roomNumber + " occupatted successfully!\n");
             foundRoom.setSituation(RoomSituation.BUSY);
-            Daily.recordDaily(roomNumber);
+            Daily.recordDailyIndividual(roomNumber, number);
+        }
+        else {
+            System.out.println("Number not possible.\n");
+        }
+    }
+    public static void doOccupancyCompany(int number, int roomQuantity){
+        showRoomSituation();
+        Utility.printMessage("Please, choose to room number for the " + number + " people.\n");
+        System.out.println("");
+        int roomNumber = sc.nextInt();
+
+        Room foundRoom = null;
+
+        for (Room room : getRoomList()){
+            if (room.getRoomNumber() == roomNumber && room.getSituation() == RoomSituation.FREE){
+                foundRoom = room;
+                break;
+            }
+        }
+        if (foundRoom != null){
+            foundRoom.setSituation(RoomSituation.BUSY);
+            Utility.printMessage("Room " + roomNumber + " occupatted successfully!\n");
+            Daily.recordDailyCompany(roomNumber, number);
         }
         else {
             System.out.println("Number not possible.\n");

@@ -1,5 +1,6 @@
 package services;
 
+import entities.persons.Company;
 import entities.persons.Individual;
 import entities.persons.Person;
 import entities.resources.Room;
@@ -44,7 +45,7 @@ public class Daily implements Calculate {
             }
         }
     }
-    public static void recordDaily(int number){
+    public static void recordDailyIndividual(int foundNumber, int number){
         Utility.printMessage("Dear, I ask you to read carefully, the daily rate\n" +
                             "registration is made only in the name of a requester,\n" +
                             "so it will be filled in with this data.\n");
@@ -71,11 +72,12 @@ public class Daily implements Calculate {
 
         Individual individual = new Individual(id, name, address, email, origin, PrivilegeLevel.INDIVIDUAL, ssn, birthday);
         servicePerson.getPersonList().add(individual);
-        proofOccupancyIndividual(individual, number);
+        proofOccupancyIndividual(individual, foundNumber, number);
     }
-    public static void proofOccupancyIndividual(Individual individual, int number){
+    public static void proofOccupancyIndividual(Individual individual, int foundNumber, int number){
         generateID(roomList);
         RoomRate roomRate = new RoomRate();
+        Room room = new Room();
         Utility.printMessage("*********PROOF OF ROOM OCCUPANCY*********\n");
         System.out.println("            INDIVIDUAL DATA         \n\n" +
                           "             > Name : " + individual.getName() + "\n" +
@@ -87,12 +89,53 @@ public class Daily implements Calculate {
                           "             > Birthday date : " + individual.getBirthday() + "\n" +
                           "             > Client type : " + individual.getPrivilegeLevel() + "\n\n" +
                           "             ROOM DATA       \n\n" +
-                          "             > Room number : " + number + "\n" +
-                          "             > Daily value : US$ " + roomRate.getValueDaily(doCalculation(number)) + "\n\n");
+                          "             > Room number : " + foundNumber + "\n" +
+                          "             > Daily value : US$ " + roomRate.getValueDaily(doCalculation(individual, room, number))+ "\n\n");
     }
-    public static Double doCalculation(int number) {
-        Person person = new Person();
+    public static void recordDailyCompany(int foundNumber, int number){
+        Utility.printMessage("Dear, I ask you to read carefully, the daily rate\n" +
+                "registration is made only in the name of a requester,\n" +
+                "so it will be filled in with this data.\n");
+
+        int id = servicePerson.generateID();
+
+        System.out.println("Enter your name:");
+        String name = sc.nextLine();
+
+        System.out.println("Enter your address:");
+        String address = sc.nextLine();
+
+        System.out.println("Enter your email:");
+        String email = sc.nextLine();
+
+        System.out.println("Enter your origin:");
+        String origin = sc.nextLine();
+
+        System.out.println("Enter your ein:");
+        String ein = sc.nextLine();
+
+        Company company = new Company(id, name, address, email, origin, PrivilegeLevel.COMPANY, ein);
+        servicePerson.getPersonList().add(company);
+        proofOccupancyCompany(company, foundNumber, number);
+    }
+    public static void proofOccupancyCompany(Company company, int foundNumber, int number){
+        generateID(roomList);
+        RoomRate roomRate = new RoomRate();
         Room room = new Room();
+        Utility.printMessage("*********PROOF OF ROOM OCCUPANCY*********\n");
+        System.out.println("            INDIVIDUAL DATA         \n\n" +
+                "             > Name : " + company.getName() + "\n" +
+                "             > Id : " + company.getId() + "\n" +
+                "             > Address : " + company.getAddress() + "\n" +
+                "             > Email : " + company.getEmail() + "\n" +
+                "             > Origin : " + company.getOrigin() + "\n" +
+                "             > EIN : " + company.getEin() + "\n" +
+                "             > Client type : " + company.getPrivilegeLevel() + "\n\n" +
+                "             ROOM DATA       \n\n" +
+                "             > Room number : " + foundNumber + "\n" +
+                "             > Daily value : US$ " + roomRate.getValueDaily(doCalculation(company, room, number))+ "\n\n");
+    }
+    public static Double doCalculation(Person person, Room room, int number) {
         double value = 0;
         if (person.getPrivilegeLevel() == PrivilegeLevel.COMPANY && room.getSituation() == RoomSituation.BUSY){
             value = (250.00*number) + (1.02*250.00) + (1.005*250.00);

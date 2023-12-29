@@ -1,7 +1,10 @@
 package repositories;
 
+import entities.persons.Person;
+import entities.resources.Room;
+
 public interface Calculate {
-    static Double doCalculation(int number) {
-        return 0.0;
+    static Double doCalculation(Person person, Room room, int number) {
+        return null;
     }
 }
