@@ -20,12 +20,11 @@ public class Query {
             for (RoomRate roomRate : roomRateList) {
                 if(roomRate.getDailyType() == DailyType.OCCUPANCY){
                     System.out.println("            INDIVIDUAL DATA         \n\n" +
-                            "             > Name : " + company.getName() + "\n" +
-                            "             > Id : " + company.getId() + "\n" +
-                            "             > Address : " + company.getAddress() + "\n" +
-                            "             > Email : " + company.getEmail() + "\n" +
-                            "             > Origin : " + company.getOrigin() + "\n" +
-                            "             > EIN : " + company.getEin() + "\n" +
+                            "             > Name : " + roomRate.getPerson().getName() + "\n" +
+                            "             > Id : " + roomRate.getPerson().getId() + "\n" +
+                            "             > Address : " + roomRate.getPerson().getAddress() + "\n" +
+                            "             > Email : " + roomRate.getPerson().getEmail() + "\n" +
+                            "             > Origin : " + roomRate.getPerson().getOrigin() + "\n" +
                             "             > Client type : " + company.getPrivilegeLevel() + "\n\n" +
                             "             ROOM DATA       \n\n" +
                             "             OCCUPANCY DATA                    \n\n" +
@@ -44,18 +43,17 @@ public class Query {
             for (RoomRate roomRate : roomRateList) {
                 if(roomRate.getDailyType() == DailyType.OCCUPANCY){
                     System.out.println("            INDIVIDUAL DATA         \n\n" +
-                            "             > Name : " + individual.getName() + "\n" +
-                            "             > Id : " + individual.getId() + "\n" +
-                            "             > Address : " + individual.getAddress() + "\n" +
-                            "             > Email : " + individual.getEmail() + "\n" +
-                            "             > Origin : " + individual.getOrigin() + "\n" +
-                            "             > SSN : " + individual.getSsn() + "\n" +
-                            "             > Birthday date : " + individual.getBirthday() + "\n" +
-                            "             > Client type : " + individual.getPrivilegeLevel() + "\n\n" +
+                            "             > Name : " + roomRate.getPerson().getName() + "\n" +
+                            "             > Id : " + roomRate.getPerson().getId() + "\n" +
+                            "             > Address : " + roomRate.getPerson().getAddress() + "\n" +
+                            "             > Email : " + roomRate.getPerson().getEmail() + "\n" +
+                            "             > Origin : " + roomRate.getPerson().getOrigin() + "\n" +
+                            "             > Client type : " + roomRate.getPerson().getPrivilegeLevel() + "\n\n" +
                             "             ROOM DATA       \n\n" +
                             "             OCCUPANCY DATA                    \n\n" +
                             "             > Id occupancy : " + roomRate.getIdDaily() + "\n" +
-                            "             > Date : " + roomRate.getDateDaily()+ "\n");
+                            "             > Date : " + roomRate.getDateDaily()+ "\n" +
+                            "             > Value of daily : " + roomRate.getValueDaily());
                 }
             }
         }

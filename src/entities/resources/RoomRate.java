@@ -1,5 +1,6 @@
 package entities.resources;
 
+import entities.persons.Person;
 import enumerations.DailySituation;
 import enumerations.DailyType;
 
@@ -11,20 +12,25 @@ public class RoomRate {
     private int idDaily;
     private String dateDaily;
     private double valueDaily;
+    private int roomNumber;
     private DailySituation situation;
 
     private DailyType dailyType;
+
+    private Person person;
 
     public RoomRate(){
 
     }
 
-    public RoomRate(int idDaily, String dateDaily, double valueDaily, DailySituation situation, DailyType dailyType){
+    public RoomRate(int idDaily, String dateDaily, double valueDaily, int roomNumber, DailySituation situation, DailyType dailyType, Person person){
         this.idDaily = idDaily;
         this.dateDaily = dateDaily;
         this.valueDaily = valueDaily;
+        this.roomNumber = roomNumber;
         this.situation = situation;
         this.dailyType = dailyType;
+        this.person = person;
     }
 
     public int getIdDaily() {
@@ -51,6 +57,14 @@ public class RoomRate {
         this.valueDaily = valueDaily;
     }
 
+    public int getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(int roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
     public DailySituation getSituation() {
         return situation;
     }
@@ -65,5 +79,13 @@ public class RoomRate {
 
     public void setDailyType(DailyType dailyType) {
         this.dailyType = dailyType;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 }

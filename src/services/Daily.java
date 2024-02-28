@@ -106,7 +106,9 @@ public class Daily implements Calculate {
                           "             > Date : " + dateDaily + "\n" +
                           "             > Daily value : US$ " + String.format("%.2f", value) + "\n\n");
 
-        RoomRate roomRate = new RoomRate(idDaily, dateDaily, value, DailySituation.SETTLED, DailyType.OCCUPANCY);
+        RoomRate roomRate = new RoomRate(idDaily, dateDaily, value, foundNumber, DailySituation.SETTLED, DailyType.OCCUPANCY,
+                new Person(individual.getId(), individual.getName(), individual.getAddress(), individual.getEmail(), individual.getOrigin(), individual.getPrivilegeLevel()
+                ));
 
         roomList.add(roomRate);
         roomRateList.add(roomRate);
@@ -160,7 +162,9 @@ public class Daily implements Calculate {
                 "             > Date : " + dateDaily + "\n" +
                 "             > Daily value : US$ " + String.format("%.2f", value)  + "\n\n");
 
-        RoomRate roomRate = new RoomRate(idDaily, dateDaily, value, DailySituation.SETTLED, DailyType.OCCUPANCY);
+        RoomRate roomRate = new RoomRate(idDaily, dateDaily, value, foundNumber, DailySituation.SETTLED, DailyType.OCCUPANCY,
+                new Person(company.getId(), company.getName(), company.getAddress(), company.getEmail(), company.getOrigin(), company.getPrivilegeLevel()
+                ));
 
         roomList.add(roomRate);
         roomRateList.add(roomRate);
