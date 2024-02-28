@@ -6,6 +6,7 @@ import entities.persons.Person;
 import entities.resources.Room;
 import entities.resources.RoomRate;
 import enumerations.DailySituation;
+import enumerations.DailyType;
 import enumerations.PrivilegeLevel;
 import enumerations.RoomSituation;
 import repositories.Calculate;
@@ -52,7 +53,7 @@ public class Daily implements Calculate {
             }
         }
     }
-    public static void recordDailyIndividual(int foundNumber, int number){
+    public static void recordDailyIndividual(int foundNumber, int number, List<RoomRate> roomRateList){
         Utility.printMessage("Dear, I ask you to read carefully, the daily rate\n" +
                             "registration is made only in the name of a requester,\n" +
                             "so it will be filled in with this data.\n");
@@ -79,9 +80,9 @@ public class Daily implements Calculate {
 
         Individual individual = new Individual(id, name, address, email, origin, PrivilegeLevel.INDIVIDUAL, ssn, birthday);
         servicePerson.getPersonList().add(individual);
-        proofOccupancyIndividual(individual, foundNumber, number);
+        proofOccupancyIndividual(individual, foundNumber, number, roomRateList);
     }
-    public static void proofOccupancyIndividual(Individual individual, int foundNumber, int number){
+    public static void proofOccupancyIndividual(Individual individual, int foundNumber, int number, List<RoomRate> roomRateList){
         generateID();
         Room room = new Room();
         room.setSituation(RoomSituation.BUSY);
@@ -105,11 +106,12 @@ public class Daily implements Calculate {
                           "             > Date : " + dateDaily + "\n" +
                           "             > Daily value : US$ " + String.format("%.2f", value) + "\n\n");
 
-        RoomRate roomRate = new RoomRate(idDaily, dateDaily, value, DailySituation.SETTLED);
+        RoomRate roomRate = new RoomRate(idDaily, dateDaily, value, DailySituation.SETTLED, DailyType.OCCUPANCY);
 
         roomList.add(roomRate);
+        roomRateList.add(roomRate);
     }
-    public static void recordDailyCompany(int foundNumber, int number){
+    public static void recordDailyCompany(int foundNumber, int number, List<RoomRate> roomRateList){
         Utility.printMessage("Dear, I ask you to read carefully, the daily rate\n" +
                 "registration is made only in the name of a requester,\n" +
                 "so it will be filled in with this data.\n");
@@ -133,9 +135,9 @@ public class Daily implements Calculate {
 
         Company company = new Company(id, name, address, email, origin, PrivilegeLevel.COMPANY, ein);
         servicePerson.getPersonList().add(company);
-        proofOccupancyCompany(company, foundNumber, number);
+        proofOccupancyCompany(company, foundNumber, number, roomRateList);
     }
-    public static void proofOccupancyCompany(Company company, int foundNumber, int number){
+    public static void proofOccupancyCompany(Company company, int foundNumber, int number, List<RoomRate> roomRateList){
         generateID();
         Room room = new Room();
         room.setSituation(RoomSituation.BUSY);
@@ -158,9 +160,10 @@ public class Daily implements Calculate {
                 "             > Date : " + dateDaily + "\n" +
                 "             > Daily value : US$ " + String.format("%.2f", value)  + "\n\n");
 
-        RoomRate roomRate = new RoomRate(idDaily, dateDaily, value, DailySituation.SETTLED);
+        RoomRate roomRate = new RoomRate(idDaily, dateDaily, value, DailySituation.SETTLED, DailyType.OCCUPANCY);
 
         roomList.add(roomRate);
+        roomRateList.add(roomRate);
     }
     public static double doCalculation(Person person, Room room, int number){
         double value = 250.00*number;

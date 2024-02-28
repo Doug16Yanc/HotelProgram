@@ -1,19 +1,20 @@
 package services;
 
+import entities.persons.Company;
 import entities.persons.Person;
+import entities.resources.RoomRate;
 import enumerations.PrivilegeLevel;
 import utils.Utility;
 
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
 import static application.Program.doFirstInteraction;
 
 public class serviceCompany {
     static Scanner sc = new Scanner(System.in);
-    public static void interactsCompany(Person person){
-        person.setPrivilegeLevel(PrivilegeLevel.COMPANY);
+    public static void interactsCompany(Company company, List<RoomRate> roomRateList){
+        company.setPrivilegeLevel(PrivilegeLevel.COMPANY);
         int option;
         Utility.printMessage("********WELCOME TO OUR PAGE TO EIN PERSON*********\n");
         do {
@@ -31,25 +32,25 @@ public class serviceCompany {
 
             switch (option) {
                 case 1 -> {
-                    Request.occupiesCompany(person);
+                    Request.occupiesCompany(company, roomRateList);
                     break;
                 }
                 case 2 -> {
-                    Request.reserveCompany(person);
+                    Request.reserveCompany(company);
                     break;
                 }
                 case 3 -> {
-                    Request.cancelCompany(person);
+                    Request.cancelCompany(company);
                     break;
                 }
                 case 4 -> {
                     System.out.println("O/o - Occupancy\nR/r-Reserve\n\n");
                     String choose = sc.nextLine();
                     if (choose.equalsIgnoreCase("o")){
-                        Query.queryOccupancyCompany(person);
+                        Query.queryOccupancyCompany(company, roomRateList);
                     }
                     else if (choose.equalsIgnoreCase("r")){
-                        Query.queryReserveCompany(person);
+                        Query.queryReserveCompany(company);
                     }
                     else{
                         System.out.println("Option no-existent!\n");
@@ -57,7 +58,7 @@ public class serviceCompany {
                     break;
                 }
                 case 5 -> {
-                    Query.queryCancellationCompany(person);
+                    Query.queryCancellationCompany(company);
                     break;
                 }
                 case 6 -> {

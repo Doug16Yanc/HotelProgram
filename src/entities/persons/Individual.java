@@ -8,6 +8,7 @@ public class Individual extends Person {
     private String ssn;
     private String birthday;
 
+    public Individual(){}
     public Individual(int id, String name, String address, String email, String origin, PrivilegeLevel privilegeLevel,
                       String ssn, String birthday) {
         super(id, name, address, email, origin, privilegeLevel);

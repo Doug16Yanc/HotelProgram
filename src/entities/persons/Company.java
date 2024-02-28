@@ -4,6 +4,8 @@ import entities.persons.Person;
 import enumerations.PrivilegeLevel;
 public class Company extends Person {
     private String ein;
+
+    public Company(){}
     public Company(int id, String name, String address, String email, String origin, PrivilegeLevel privilegeLevel,
                       String ein) {
         super(id, name, address, email, origin, privilegeLevel);

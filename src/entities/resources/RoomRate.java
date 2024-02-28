@@ -1,6 +1,7 @@
 package entities.resources;
 
 import enumerations.DailySituation;
+import enumerations.DailyType;
 
 
 import java.util.Date;
@@ -12,15 +13,18 @@ public class RoomRate {
     private double valueDaily;
     private DailySituation situation;
 
+    private DailyType dailyType;
+
     public RoomRate(){
 
     }
 
-    public RoomRate(int idDaily, String dateDaily, double valueDaily, DailySituation situation){
+    public RoomRate(int idDaily, String dateDaily, double valueDaily, DailySituation situation, DailyType dailyType){
         this.idDaily = idDaily;
         this.dateDaily = dateDaily;
         this.valueDaily = valueDaily;
         this.situation = situation;
+        this.dailyType = dailyType;
     }
 
     public int getIdDaily() {
@@ -53,5 +57,13 @@ public class RoomRate {
 
     public void setSituation(DailySituation situation) {
         this.situation = situation;
+    }
+
+    public DailyType getDailyType() {
+        return dailyType;
+    }
+
+    public void setDailyType(DailyType dailyType) {
+        this.dailyType = dailyType;
     }
 }

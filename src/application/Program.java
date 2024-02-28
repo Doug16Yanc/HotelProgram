@@ -1,8 +1,10 @@
 package application;
 
-import services.Occupancy;
+import entities.resources.RoomRate;
 import utils.Utility;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import static services.serviceEmployee.employeeLogin;
@@ -14,6 +16,7 @@ public class Program {
         doFirstInteraction();
     }
     public static void doFirstInteraction(){
+        List<RoomRate> roomRateList = new ArrayList<>();
         Utility.printMessage("Welcome, dear, to our hotel system.\n");
         System.out.println("        Introduce yourself          \n" +
                 "                   E/e - Employee              \n" +
@@ -26,7 +29,7 @@ public class Program {
                 employeeLogin();
             }
             case "c" -> {
-                distinguishPerson();
+                distinguishPerson(roomRateList);
             }
             case "o" -> {
                Utility.printMessage("It was a pleasure spending these simple \n" +
